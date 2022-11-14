@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}List File Form{% endblock title %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="my-5">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</div>
+{% endblock content %}
