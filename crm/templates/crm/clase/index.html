@@ -1,0 +1,25 @@
+{% extends 'crm/base.html' %}
+
+{% block title %}Index{% endblock title %}
+
+
+{% block content %}
+<h1>Listado De Clases</h1>
+<br>
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Fecha</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for clase in object_list %}
+        <tr>
+            <td><a href="{{clase.get_absolute_url}}">{{clase.fecha}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a class="btn btn-success" href="{% url 'crm:clase_create' %}">Nueva Clase</a>
+{% endblock content %}

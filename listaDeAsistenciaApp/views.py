@@ -1,10 +1,33 @@
+from typing import Any
 from django.shortcuts import render
+from django.db.models import F, Count
+from django.views.generic import TemplateView
 from .forms import ArchivoListaModelForm
 from .models import Archivo_Lista, Clase, Alumno
 import csv
 import re
 from unicodedata import normalize
 from datetime import datetime
+
+import calendar
+
+
+class Index(TemplateView):
+    template_name = 'listaDeAsistenciaApp/index.html'
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        exposicion = F('ponderaciones__exposicion')
+        participacion = F('ponderaciones__participacion')
+        noticia = F('ponderaciones__noticia')
+        alumnos = Alumno.objects.annotate(
+            exposicion = exposicion, 
+            participacion = participacion, 
+            noticia = noticia
+        )
+        context.update({'alumnos': alumnos})
+        
+        return context
 
 
 def upload_file_list_view(request):
@@ -134,3 +157,19 @@ def upload_file_list_view(request):
         form = ArchivoListaModelForm()
 
     return render(request, 'listaDeAsistenciaApp/ListForm.html', {'form': form})
+
+
+def registrar_asistencia(request):
+    alumnos = Alumno.objects.all()
+    clases = Clase.objects.all()
+
+    return render(request, 'listaDeAsistenciaApp/registrar_asistencia.html', {'alumnos': alumnos, 'clases': clases})
+
+
+def calendar_template(request):
+
+    th = calendar.HTMLCalendar()
+
+    calendario = th.formatyear(2023, width=4)
+
+    return render(request, 'listaDeAsistenciaApp/calendario.html', {'calendario': calendario})

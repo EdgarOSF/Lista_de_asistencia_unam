@@ -1,0 +1,30 @@
+{% extends 'crm/base.html' %}
+{% block title %}{{periodo}}{% endblock title %}
+
+{% block content %}
+
+<main id="main" class="main">
+    <div class="pagetitle">
+        <h1>{{clase}}</h1>
+    </div>
+    <section class="section dashboard mb-3">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card">
+                    <div class="card-body pt-3">
+                        <h5 class="card-title">Detalles de Clase</h5>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 label fw-bold">Fecha:</div>
+                            <div class="col-lg-9 col-md-8">{{clase.fecha}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <a class="btn btn-info" href="{% url 'crm:index_clase' %}">Regresar</a>
+    <a class="btn btn-warning" href="{% url 'crm:clase_update' clase.id %}">Editar</a>
+    <a class="btn btn-danger" href="{% url 'crm:clase_delete' clase.id %}">Eliminar</a>
+</main>
+
+{% endblock content %}

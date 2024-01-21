@@ -1,0 +1,29 @@
+{% extends 'listaDeAsistenciaApp/base.html' %}
+
+{% block title %}Registro de Asistencias{% endblock title %}
+{% block content %}
+<div class="container">
+
+    {% include 'listaDeAsistenciaApp/components/list_clases.html' %}
+
+    <h2>Registro de Asistencias</h2>
+    <br>
+    <table class="table table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for alumno in alumnos %}
+            <tr>
+                <td><a href="{{alumno.get_absolute_url}}">{{alumno.nombre}}</a></td>
+                <td>{{alumno.email}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock content %}

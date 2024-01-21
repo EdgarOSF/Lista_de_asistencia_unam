@@ -1,0 +1,27 @@
+{% extends 'crm/base.html' %}
+
+{% block title %}Index{% endblock title %}
+
+
+{% block content %}
+<h1>Listado De Alumnos</h1>
+<br>
+<table class="table table-dark table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alumno in object_list %}
+        <tr>
+            <td><a href="{{alumno.get_absolute_url}}">{{alumno.nombre}}</a></td>
+            <td>{{alumno.email}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<br>
+<a class="btn btn-success" href="{% url 'crm:alumno_create' %}">Nuevo Alumno</a>
+{% endblock content %}
